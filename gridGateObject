@@ -1,0 +1,18 @@
+package com.qait.automation.pomTatoc;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+
+public class gridGateObject {
+	WebDriver driver;
+	public gridGateObject(WebDriver driver) {
+		this.driver=driver;
+	}
+
+public void colorPassed(String color) throws InterruptedException {
+	driver.get("http://10.0.1.86/tatoc");
+	driver.findElement(By.linkText("Basic Course")).sendKeys(Keys.ENTER);
+		driver.findElement(By.className(color)).click();		
+		}
+}
