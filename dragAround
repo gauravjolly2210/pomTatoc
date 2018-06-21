@@ -1,0 +1,43 @@
+package com.qait.automation.pomTatoc;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class dragAround {
+	WebDriver driver;
+	
+	dragAroundObject drag;
+	frameDungeon frame1;
+	public void isDragged(WebDriver driver) throws InterruptedException {
+		frame1=new frameDungeon();
+		frame1.isSameColor(driver);
+		drag =new dragAroundObject(driver);
+		drag.dragAround();
+	
+	}
+	
+	@Test(groups="tatocTest")
+	public void drag() throws InterruptedException {
+		isDragged(driver);
+		Assert.assertEquals(driver.getCurrentUrl(),"http://10.0.1.86/tatoc/basic/windows" );
+	}
+	@Test
+	public void failCase() {
+		drag.clickingOnProceed();
+		Assert.assertEquals(driver.getCurrentUrl(),"http://10.0.1.86/tatoc/error");
+	}
+	@BeforeClass
+	public void launchBrowser() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver","/home/qainfotech/Downloads/chromedriver");
+		driver=new ChromeDriver();
+		Thread.sleep(1000);
+	}
+	@AfterClass
+	public void closeBrowser(){
+		driver.quit();
+	}
+}
