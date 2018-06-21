@@ -1,0 +1,45 @@
+package com.qait.automation.pomTatoc;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class frameDungeon {
+	WebDriver driver;
+	frameDungeonObject frame;
+	dragAround drag;
+	gridGate gate;
+	public void isSameColor(WebDriver driver) throws InterruptedException {
+		//driver.getWindowHandle();
+		gate=new gridGate();
+		gate.GreenBox(driver);
+		frame =new frameDungeonObject(driver);
+		frame.sameColor();
+	}
+	
+	@Test(groups="tatocTest")
+	public void checkingColor() throws InterruptedException {
+		isSameColor(driver);
+		Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/basic/drag" );
+	}
+	
+	@Test
+	public void failCase() {
+		frame.clickingOnProceed();
+		Assert.assertEquals(driver.getCurrentUrl(),"http://10.0.1.86/tatoc/error");
+	}
+	
+	@BeforeClass
+	public void launchBrowser() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver","/home/qainfotech/Downloads/chromedriver");
+		driver=new ChromeDriver();
+		checkingColor();
+	}
+	@AfterClass
+	public void closeBrowser(){
+		driver.quit();
+	}
+}
