@@ -1,0 +1,26 @@
+package com.qait.automation.pomTatoc;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+public class dragAroundObject {
+	
+	WebDriver driver;
+	public dragAroundObject(WebDriver driver) {
+		this.driver=driver;
+	}
+	public void dragAround() throws InterruptedException {
+		 driver.switchTo().defaultContent();	
+		 Thread.sleep(1000);
+		 WebElement from=driver.findElement(By.id("dragbox"));
+	     WebElement to=driver.findElement(By.id("dropbox"));					
+	     Actions act=new Actions(driver);					
+	     act.dragAndDrop(from, to).build().perform();	
+	     driver.findElement(By.linkText("Proceed")).click();  
+	}
+	public void clickingOnProceed() {
+		driver.findElement(By.linkText("Proceed")).click();
+	}
+}
