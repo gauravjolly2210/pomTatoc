@@ -1,0 +1,34 @@
+package com.qait.automation.pomTatoc;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class popUpObject {
+
+	WebDriver driver;
+	public popUpObject(WebDriver driver) {
+		this.driver=driver;
+	}
+	public void popUp() throws InterruptedException {
+		driver.findElement(By.linkText("Launch Popup Window")).click();
+	     String parentWindow=driver.getWindowHandle();
+	     String subWindow=null;
+	     Set<String> handles=driver.getWindowHandles();
+	     for(String h:handles) {
+	    	 subWindow=h;
+	     }	     
+	     driver.switchTo().window(subWindow);
+	     System.out.println(driver.getCurrentUrl());
+	     Thread.sleep(2000);
+	     driver.findElement(By.id("name")).sendKeys("name");
+	     driver.findElement(By.id("submit")).click();
+	     driver.switchTo().window(parentWindow); 
+	     driver.findElement(By.linkText("Proceed")).click();
+	     Thread.sleep(1000);
+}
+	public void clickingOnProceed() {
+		driver.findElement(By.linkText("Proceed")).click();
+	}
+	}
