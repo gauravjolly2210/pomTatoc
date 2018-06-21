@@ -1,0 +1,24 @@
+package com.qait.automation.pomTatoc;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
+
+public class cookiesObject {
+	WebDriver driver;
+	public cookiesObject(WebDriver driver){
+		this.driver=driver;
+	}
+	public void cookies() {
+		driver.findElement(By.linkText("Generate Token")).click();
+	     String value=driver.findElement(By.id("token")).getText();
+	     System.out.println(value);
+	     Cookie ck=new Cookie("Token", value.substring(value.indexOf(":")+2));
+	     driver.manage().addCookie(ck);	
+	}
+
+	public void clickingOnProceed() {
+		driver.manage().deleteAllCookies();
+		driver.findElement(By.linkText("Proceed")).click();
+	}
+}
