@@ -1,7 +1,5 @@
 package com.qait.automation.pomTatoc;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -12,23 +10,29 @@ import org.testng.annotations.Test;
 public class gridGate {
 	WebDriver driver;
 	gridGateObject boxColor;
-	@Test
-	public void isGreenBox() throws InterruptedException {
+	
+	public void GreenBox(WebDriver driver) throws InterruptedException {
+		boxColor =new gridGateObject(driver);
 		boxColor.colorPassed("greenbox");
+	}
+	@Test(groups="tatocTest")
+	public void isGreenBox() throws InterruptedException {
+		GreenBox(driver);	
 		Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/basic/frame/dungeon" );
 	}
-	@Test(dependsOnMethods="isGreenBox")
+	
+	@Test
 	public void isRedBox() throws InterruptedException {
+		boxColor =new gridGateObject(driver);
 		boxColor.colorPassed("redbox");
 		Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/error" );
 	}
 	
 	@BeforeClass
-	public void launchBrowser() {
+	public void launchBrowser() throws InterruptedException {
 		System.setProperty("webdriver.chrome.driver","/home/qainfotech/Downloads/chromedriver");
 		driver=new ChromeDriver();
 		
-		boxColor =new gridGateObject(driver);
 	}
 	@AfterClass
 	public void closeBrowser(){
