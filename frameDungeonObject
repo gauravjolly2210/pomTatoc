@@ -2,6 +2,7 @@ package com.qait.automation.pomTatoc;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class frameDungeonObject {
 	String qcolor;
@@ -21,24 +22,27 @@ public class frameDungeonObject {
 		return acolor;
 	}
 public void sameColor() throws InterruptedException {
-	Thread.sleep(1000);
+	//Thread.sleep(1000);
 	driver.switchTo().frame("main");
 	getQcolor();
 	
 	while(true){
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		driver.findElement(By.linkText("Repaint Box 2")).click();
 		driver.switchTo().frame("child");
 		getAcolor();	
 		driver.switchTo().parentFrame();
 		if(qcolor.equals(acolor)) {
 			driver.findElement(By.linkText("Proceed")).click();
+			Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/basic/drag" );
 			break;
 			}
 		}
 	}
 
 public void clickingOnProceed() {
+		driver.switchTo().frame(0);
 		driver.findElement(By.linkText("Proceed")).click();
+		Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/error" );
 	}
 }
