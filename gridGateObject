@@ -3,6 +3,7 @@ package com.qait.automation.pomTatoc;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class gridGateObject {
 	WebDriver driver;
@@ -14,5 +15,12 @@ public void colorPassed(String color) throws InterruptedException {
 	driver.get("http://10.0.1.86/tatoc");
 	driver.findElement(By.linkText("Basic Course")).sendKeys(Keys.ENTER);
 		driver.findElement(By.className(color)).click();		
-		}
+	if(color.equals("greenbox"))
+	{
+		Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/basic/frame/dungeon" );
+	}
+	else if(color.equals("redbox")) {
+		Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/error" );
+	}
+	}
 }
