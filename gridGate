@@ -18,14 +18,12 @@ public class gridGate {
 	@Test(groups="tatocTest")
 	public void isGreenBox() throws InterruptedException {
 		GreenBox(driver);	
-		Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/basic/frame/dungeon" );
 	}
 	
 	@Test
 	public void isRedBox() throws InterruptedException {
 		boxColor =new gridGateObject(driver);
 		boxColor.colorPassed("redbox");
-		Assert.assertEquals( driver.getCurrentUrl(),"http://10.0.1.86/tatoc/error" );
 	}
 	
 	@BeforeClass
