@@ -1,0 +1,92 @@
+package com.qait.automation.pomTatoc;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+public class AllTest {
+	WebDriver driver;
+	gridGateObject boxcolor;
+	frameDungeonObject frame;
+	dragAroundObject drag;
+	popUpObject pop;
+	cookiesObject cook;
+	@BeforeClass
+	public void launchBrowser() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver","/home/qainfotech/Downloads/chromedriver");
+		driver=new ChromeDriver();
+		boxcolor=new gridGateObject(driver);
+		}
+	//@AfterClass
+	public void closeBrowser(){
+		driver.quit();
+	}
+	@Test
+	public void isRedBox() throws InterruptedException {
+		boxcolor =new gridGateObject(driver);
+		boxcolor.colorPassed("redbox");
+		driver.navigate().back();
+	}
+	@Test(dependsOnMethods= {"isRedBox"})
+	public void isGreenBox() throws InterruptedException {
+		//boxcolor=new gridGateObject(driver);
+		boxcolor.colorPassed("greenbox");
+		//Thread.sleep(2000);
+	}
+	@Test(dependsOnMethods= {"isGreenBox"})
+	public void failCaseFrameDungeon() throws InterruptedException {
+		//Thread.sleep(2000);
+		frame=new frameDungeonObject(driver);
+		frame.clickingOnProceed();
+		driver.navigate().back();
+	}
+	@Test(dependsOnMethods= {"failCaseFrameDungeon"})
+	public void checkingColor() throws InterruptedException {
+		//frame=new frameDungeonObject(driver);
+		frame.sameColor();
+	}
+	@Test(dependsOnMethods= {"checkingColor"})
+	public void failCaseDragAround() {
+		drag=new dragAroundObject(driver);
+		drag.clickingOnProceed();
+		driver.navigate().back();
+	}
+	@Test(dependsOnMethods= {"failCaseDragAround"})
+	public void drag() throws InterruptedException {
+		drag.dragAround();
+	}
+	
+	@Test(dependsOnMethods= {"drag"})
+	public void failCasePopUp() {
+		pop=new popUpObject(driver);
+		pop.clickingOnProceed();
+		driver.navigate().back();
+	}
+	
+	@Test(dependsOnMethods= {"failCasePopUp"})
+	public void popUpCheck() throws InterruptedException {
+		pop.popUp();
+	}
+	
+	@Test(dependsOnMethods= {"popUpCheck"})
+	public void failCaseCookie() {
+		cook=new cookiesObject(driver);
+		cook.clickingOnProceed();
+		driver.navigate().back();
+	}
+	
+	@Test(dependsOnMethods= {"failCaseCookie"})
+	public void CookieCheck() throws InterruptedException {
+		cook.cookies();
+		
+		
+		}
+	
+	
+	
+	
+}
